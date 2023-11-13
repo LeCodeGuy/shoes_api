@@ -1,6 +1,6 @@
 import assert from "assert";
 import db from "../routes/database-connection.js";
-import queries from "../services/waiter-webapp-services.js";
+import queries from "../services/shoe-catalog-services.js";
 
 const query= queries(db);
 
