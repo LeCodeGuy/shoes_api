@@ -9,7 +9,6 @@ describe("Shoe Catalog API testing", function(){
     
     this.beforeEach(async function (){
         await query.resetData();
-        await query.resetUsers();
     });
     
     it("should return all shoe information", async function (){
