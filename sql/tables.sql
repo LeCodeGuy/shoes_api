@@ -12,7 +12,7 @@ CREATE TABLE products (
     price INT NOT NULL,
     size INT NOT NULL,
     in_stock INT NOT NULL,
-    image VARCHAR(255) NOT NULL
+    -- image VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE cart(
