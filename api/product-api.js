@@ -27,11 +27,6 @@ export default function ProductsAPI(productService){
             });
         }
         catch (err) {
-            // res.json({ 
-            //     status: "error",
-            //     error:  err.stack
-            // });
-
             next(err.stack);
         }
     }
@@ -72,17 +67,32 @@ export default function ProductsAPI(productService){
     }
 
     async function saleMade(req, res){
-        let productID = req.params.id;
-        console.log(productID);
-
-        console.log(req.body);
+        const id = req.body.id;
 
         try{
-            await productService.saleMade(productID);
+
+            let result = await productService.saleMade(id);
+            
+            res.json({
+                status: 'success'
+            });
+        }
+        catch(err){
+            res.json({
+				status: "error",
+				error: err.stack
+			});
+        }
+    }
+
+    async function addStock (req,res,next){
+        const data = req.body
+        try{
+
+            await productService.addStock(data);
             
             res.json({
                 status: 'success',
-                // message: results
             });
         }
         catch(err){
@@ -98,6 +108,7 @@ export default function ProductsAPI(productService){
         filterByBrand,
         filterBySize,
         filterByBrandSize,
-        saleMade
+        saleMade,
+        addStock
     }
 }

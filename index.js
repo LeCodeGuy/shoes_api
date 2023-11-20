@@ -81,6 +81,7 @@ app.get('/api/shoes/brand/:brandname', productsAPI.filterByBrand);
 app.get('/api/shoes/size/:size', productsAPI.filterBySize);
 app.get('/api/shoes/brand/:brandname/size/:size', productsAPI.filterByBrandSize);
 app.post('/api/shoes/sold/:id', productsAPI.saleMade);
+app.post('/api/shoes', productsAPI.addStock);
 
 app.use(errorHandler);
 

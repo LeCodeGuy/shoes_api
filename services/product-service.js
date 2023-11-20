@@ -26,14 +26,23 @@ export default function productService(db){
 
     async function saleMade(productID){
         let record = await db.oneOrNone("SELECT * FROM products WHERE id=$1",productID)
-        console.log(record.in_stock);
         let newQty = record.in_stock -1;
-        console.log(newQty);
         let data = [
             newQty,
             productID
         ];
+
         return await db.none("UPDATE products SET in_stock=$1 WHERE id=$2",data);
+    }
+
+    async function addStock(stockData){
+        const color = stockData.color
+        const brand = stockData.brand
+        const price = stockData.price
+        const size = stockData.size
+        const in_stock = stockData.in_stock
+        
+        return await db.none("INSERT INTO products (id,color,brand,price,size,in_stock) VALUES (DEFAULT,$1,$2,$3,$4,$5)",[color,brand,price,size,in_stock]);
     }
 
     return{
@@ -41,6 +50,7 @@ export default function productService(db){
         filterByBrand,
         filterBySize,
         filterByBrandSize,
-        saleMade
+        saleMade,
+        addStock
     }
 }
