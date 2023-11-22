@@ -17,6 +17,12 @@ export default function productService(db){
 
         return results;
     }
+
+    async function filterByColor(color){
+        let results = await db.manyOrNone("SELECT * FROM products WHERE color=$1",[color]);
+
+        return results;
+    }
     
     async function filterByBrandSize(brand,size){
         let results = await db.manyOrNone("SELECT * FROM products WHERE brand=$1 AND size=$2",[brand,size]);
@@ -32,7 +38,13 @@ export default function productService(db){
             productID
         ];
 
-        return await db.none("UPDATE products SET in_stock=$1 WHERE id=$2",data);
+        if(newQty >= 0){
+            return await db.none("UPDATE products SET in_stock=$1 WHERE id=$2",data);
+        }
+        else{
+            return "out of stock";
+        }
+        
     }
 
     async function addStock(stockData){
@@ -49,6 +61,7 @@ export default function productService(db){
         showAll,
         filterByBrand,
         filterBySize,
+        filterByColor,
         filterByBrandSize,
         saleMade,
         addStock

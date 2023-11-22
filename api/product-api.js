@@ -48,6 +48,23 @@ export default function ProductsAPI(productService){
         }
     }
     
+    // List all shoes for a given color
+    async function filterByColor(req, res, next){
+        let color = req.params.color;
+
+        try{
+            let results = await productService.filterByColor(color);
+
+            res.json({
+                status: 'success',
+                data: results
+            });
+        }
+        catch (err) {
+            next(err.stack);
+        }
+    }
+
     // List all shoes for a given brand and size
     async function filterByBrandSize(req, res, next){
         let brand = req.params.brandname;
@@ -90,7 +107,7 @@ export default function ProductsAPI(productService){
         try{
 
             await productService.addStock(data);
-            
+
             res.json({
                 status: 'success',
             });
@@ -107,6 +124,7 @@ export default function ProductsAPI(productService){
         showAll,
         filterByBrand,
         filterBySize,
+        filterByColor,
         filterByBrandSize,
         saleMade,
         addStock
